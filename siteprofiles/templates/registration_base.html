@@ -1,0 +1,76 @@
+<div class="red">
+{% if form.non_field_errors %}
+{{ form.non_field_errors }}
+{% endif %}
+</div>
+ <div class="tabscontainer">
+     <div class="tabs">
+         <div class="tab selected first" id="tab_menu_1">
+             <div class="link">Student</div>
+             <div class="arrow"></div>
+         </div>
+         <div class="tab" id="tab_menu_2">
+             <div class="link">Professor</div>
+             <div class="arrow"></div>
+         </div>
+          <div class="tab last" id="tab_menu_3">
+             <div class="link">Employer</div>
+             <div class="arrow"></div>
+         </div>
+    </div>
+    <div class="curvedContainer">
+        <div class="tabcontent" id="tab_content_1" style="display:block">
+	        <form method="post" action="/accounts/register/" class="accountForm marginTop">{% csrf_token %}<!-- Added due to internal url-->
+			   <div id="student-registration" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:582px">
+				{% for field in form %}
+				<div style="width:400px;padding:15px;">
+			            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+						<div style="display:inline">{{ field }}</div>
+				</div>
+						{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+						{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+				{% endfor %}
+				<input type="hidden" name="persontype" value="student"/>
+				<input type="submit" value="Register" class="submit" style="width:100px;margin:0px auto;display:block;height:32px;">
+				</div>
+			</form>
+        </div>
+        <div class="tabcontent" id="tab_content_2">
+        	        <form method="post" action="/accounts/register/" class="accountForm marginTop">{% csrf_token %}<!-- Added due to internal url-->
+			   <div id="student-registration" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:582px">
+				{% for field in form %}
+				<div style="width:400px;padding:15px;">
+			            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+						<div style="display:inline">{{ field }}</div>
+				</div>
+						{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+						{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+				{% endfor %}
+				<input type="hidden" name="persontype" value="professor"/>
+				<input type="submit" value="Register as Professor" class="submit" style="width:140px;margin:0px auto;display:block;height:32px;">
+				</div>
+			</form>
+        </div>
+        <div class="tabcontent" id="tab_content_3">
+        	        <form method="post" action="/accounts/register/" class="accountForm marginTop">{% csrf_token %}<!-- Added due to internal url-->
+			   <div id="student-registration" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:582px">
+				{% for field in form %}
+				<div style="width:400px;padding:15px;">
+			            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+						<div style="display:inline">{{ field }}</div>
+				</div>
+						{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+						{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+				{% endfor %}
+				<input type="hidden" name="persontype" value="employer"/>
+				<input type="submit" value="Register as Employer" class="submit" style="width:140px;margin:0px auto;display:block;height:32px;">
+				</div>
+			</form>
+        </div>
+
+        
+        
+        </div>
+    </div>
+</div>
+

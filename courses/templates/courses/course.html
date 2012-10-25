@@ -1,0 +1,14 @@
+{% extends "courses/base_course.html" %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content_title %}
+	<h2>{{ course.title }}</h2>
+{% endblock %}
+
+{% block content %}
+<h2>Description</h2>
+<p> {{ course.description }} </p>
+<h2>Syllabus</h2>
+<p> {{ course.syllabus }} </p>
+{% endblock %}

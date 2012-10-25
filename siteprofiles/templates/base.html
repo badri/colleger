@@ -1,0 +1,160 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+    <title>{% block title %}User test{% endblock %}</title>
+    	<style type="text/css">
+    	div.tabscontainer{
+		    margin:15px 0px;
+		}
+		div.profile-content {
+			display: block;
+			width:400px;
+			padding:10px;
+		}
+		
+		div.profile-field-label {
+			width:120px;
+			padding:5px;
+			display:inline-block
+		}
+		 
+		div.profile-field-value {
+			width:250px;
+			display:inline-block;
+			padding:5px;
+		}
+		
+		div.tabscontainer div.tabs{
+		    list-style: none;
+		    width: 160px;
+		    cursor: pointer;
+		    float:left;
+		    margin-top: 150px;
+		    margin-left: 600px;
+		    z-index: 2;
+		}
+		 
+		div.tabscontainer div.curvedContainer{
+		    margin-left: 159px;
+		    border:1px solid #7c7c77;
+		    min-height:400px;
+		    -moz-border-radius: 13px;
+		    border-radius: 13px;
+		}
+		 
+		div.tabscontainer div.curvedContainer .tabcontent{
+		    display:none;
+		    padding:20px;
+		    font-size:12px;
+		    font-family: "CenturyGothicRegular", "Century Gothic", Arial, Helvetica, sans-serif;
+		}
+		 
+		div.tabs div.tab{
+		    display: block;
+		    height: 48px;
+		    background: #eeeeea;
+		    border: #d6d6d2 solid 1px;
+		    border-top: none;
+		    position: relative;
+		    color: #73736b;
+		}
+		 
+		div.tabs div.link{
+		    padding-left: 20px;
+		    padding-top:20px;
+		    font-family: "CenturyGothicRegular", "Century Gothic", Arial, Helvetica, sans-serif;
+		    font-size: 14px;
+		}
+		 
+		div.tabs div.tab.selected{
+		    border-right-color: #aeaeaa;
+		}
+		 
+		div.tabs div.tab.selected{
+		    background: url(menuSelBack.png) repeat-x;
+		    border-right-color: #7c7c77;
+		}
+		 
+		div.tabs div.tab.first{
+		    border-top: #dbdbb7 solid 1px;
+		    -moz-border-radius-topleft: 13px;
+		    border-top-left-radius: 13px;
+		}
+		 
+		div.tabs div.tab.last{
+		    -moz-border-radius-bottomleft: 13px;
+		    border-bottom-left-radius: 13px;
+		}
+		 
+		div.tabs div.tab div.arrow{
+		    position: absolute;
+		    background: url(homeSelArrow.png) no-repeat;
+		    height: 58px;
+		    width: 17px;
+		    left: 100%;
+		    top: 0px;
+		    display: none;
+		}
+		 
+		div.tabs div.tab.selected div.arrow{
+		    display: block;
+		}
+		</style>
+		
+		<script type="text/javascript">
+		$(document).ready(function() {
+	    	$(".tabs .tab[id^=tab_menu]").click(function() {
+	        var curMenu=$(this);
+	        $(".tabs .tab[id^=tab_menu]").removeClass("selected");
+	        curMenu.addClass("selected");
+	 
+	        var index=curMenu.attr("id").split("tab_menu_")[1];
+	        $(".curvedContainer .tabcontent").css("display","none");
+	        $(".curvedContainer #tab_content_"+index).css("display","block");
+	   		});
+	   		$(function() {
+           		$("#id_dob").datepicker({ dateFormat: 'dd/mm/yy' });
+        	});
+		});
+		</script>
+</head>
+
+<body>
+    <div id="header"style="width:100%;height:50px">
+        {% block header %}
+	{% if user.is_authenticated %}
+	{% trans "Logged in" %}: {{ user.username }} 
+	(<a href="{% url auth_logout %}">{% trans "Log out" %}</a> | 
+	<a href="{% url auth_password_change %}">{% trans "Change password" %}</a>)
+	{% else %}
+	<div id="login-form" style="float:right;padding:10px">
+	<form action="/login/" method="post" accept-charset="utf-8">{% csrf_token %}
+		<label for="username">Username</label><input type="text" name="username" value="" id="username" />
+		<label for="password">Password</label><input type="password" name="password" value="" id="password" />
+		<input type="submit" value="Login">
+	</form>
+	</div>
+	{% endif %}
+        {% endblock %}
+    </div>
+	<div id="navigation">
+        {% block navigation %}{% endblock %}
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer">
+        {% block footer %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

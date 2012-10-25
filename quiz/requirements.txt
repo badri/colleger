@@ -1,0 +1,12 @@
+dateutils
+django-mptt>=0.2.1
+easy_thumbnails>=1.0-alpha-17
+django-polymorphic>=0.2
+PIL==1.1.7
+django-filer
+django-taggit
+django-registration
+django-ratings==0.3.7
+django-treebeard==2.0a1
+django-haystack
+

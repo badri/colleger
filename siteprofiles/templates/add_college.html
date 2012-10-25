@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile{% endblock %}
+ 
+{% block content %}
+<h1>Add College</h1>
+    <div class="tabcontent" style="display:block">
+        <form method="post" action="" class="accountForm marginTop">{% csrf_token %}<!-- Added due to internal url-->
+        	<input type="submit" name="submit" value="{{ crud }} College" class="submit" style="width:100px;margin:0px auto;height:32px;display:inline-block;">
+		   <div class="college-profile" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:50px;float:left;">
+		   <h3>College Details</h3>
+			{% for field in form %}
+			<div style="width:400px;padding:15px;">
+		            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+					<div style="display:inline">{{ field }}</div>
+			</div>
+					{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+					{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+			{% endfor %}
+			</div>
+			<div class="student-profile" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:50px;float:left">
+			<h3>Contact Details</h3>
+			{% for field in addr_form %}
+			<div style="width:400px;padding:15px;">
+		            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+					<div style="display:inline">{{ field }}</div>
+			</div>
+					{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+					{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+			{% endfor %}
+			</div>
+		</form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Edit College Details{% endblock %}
+{% block navigation %}
+	<a href="/colleges/edit/{{college.id}}">Edit College Details</a>
+{% endblock navigation %}
+{% block content %}
+    <div class="profile-content">
+    <h3> {{ college.name }}'s Details</h3>
+    	<div class="profile-field-label">Name: </div>
+		<div class="profile-field-value">{{ college.name }}</div>
+		<div class="profile-field-label">Established:</div>
+		<div class="profile-field-value">{{ college.established }}</div>
+		<div class="profile-field-label">Faculties:</div>
+		<div class="profile-field-value">{{ college.faculties }}</div>
+		<div class="profile-field-label">Affiliation:</div>
+		<div class="profile-field-value">{{ college.affiliation }}</div>
+		<div class="profile-field-label">College Funding:</div>
+		<div class="profile-field-value">{{ college.college_type }}</div>
+		<div class="profile-field-label">UPC CGPA:</div>
+		<div class="profile-field-value">{{ college.ugc_cgpa }}</div>
+		<div class="profile-field-label">UPC GRADE:</div>
+		<div class="profile-field-value">{{ college.ugc_grade }}</div>
+	<h3>Contact Details</h3>
+		<div class="profile-field-label">Address Line 1:</div>
+		<div class="profile-field-value">{{ addr.address_line1 }}</div>
+		<div class="profile-field-label">Address Line 2:</div>
+		<div class="profile-field-value">{{ addr.address_line2 }}</div>
+		<div class="profile-field-label">Address Line 3:</div>
+		<div class="profile-field-value">{{ addr.address_line3 }}</div>
+		<div class="profile-field-label">Area:</div>
+		<div class="profile-field-value">{{ addr.area }}</div>
+		<div class="profile-field-label">City:</div>
+		<div class="profile-field-value">{{ addr.city }}</div>
+		<div class="profile-field-label">State:</div>
+		<div class="profile-field-value">{{ addr.state }}</div>
+		<div class="profile-field-label">Country:</div>
+		<div class="profile-field-value">{{ addr.country }}</div>
+		<div class="profile-field-label">Pincode:</div>
+		<div class="profile-field-value">{{ addr.pincode }}</div>
+		<div class="profile-field-label">Phone:</div>
+		<div class="profile-field-value">{{ addr.phone }}</div>
+		<div class="profile-field-label">Website:</div>
+		<div class="profile-field-value">{{ addr.website }}</div>
+		<div class="profile-field-label">Blog:</div>
+		<div class="profile-field-value">{{ addr.blog }}</div>
+	</div>
+{% endblock content %}
+
