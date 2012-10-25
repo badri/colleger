@@ -9,4 +9,4 @@ django-registration
 django-ratings==0.3.7
 django-treebeard==2.0a1
 django-haystack
-
+South
