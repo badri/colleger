@@ -125,7 +125,6 @@ INSTALLED_APPS = (
     'quiz',
     'courses',
     'django_extensions',
-    'filer',
     'siteprofiles',
     'registration',
     'taggit',

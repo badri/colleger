@@ -2,7 +2,6 @@ from quiz.models import Quiz
 
 from taggit.managers import TaggableManager
 from polymorphic import PolymorphicModel
-from filer.fields.image import FilerFileField
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -72,7 +71,8 @@ class Lecture(Session):
 
 class Material(models.Model):
     # can be a doc, video, slide. will be embed using open embed api in page.
-    docs = FilerFileField(related_name='lecture notes')
+    docs = models.FileField(verbose_name=_(u'Attachments'),
+                                  upload_to='attachments')
     # is associated with any course/unit/lecture
     session = models.ManyToManyField(Session, related_name='used_in')
 
