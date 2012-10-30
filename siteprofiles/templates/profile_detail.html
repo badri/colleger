@@ -13,7 +13,7 @@
 		<div class="profile-field-label">DOB:</div>
 		<div class="profile-field-value">{{ st.dob }}</div>
 		<div class="profile-field-label">Resume:</div>
-		<div class="profile-field-value"><a href="{{ st.resume.url }}">{{ st.resume.name }}</a></div>
+		{% if st.resume %}<div class="profile-field-value"><a href="{{ st.resume.url }}">{{ st.resume.name }}</a></div> {% endif %}
 		<div class="profile-field-label">Passport:</div>
 		<div class="profile-field-value">{{ st.register_no }}</div>
 		<div class="profile-field-label">Tenth %:</div>

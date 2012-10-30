@@ -17,8 +17,9 @@ def edit_profile(request):
 	uname = request.user
 	st = Student.objects.get(user=uname)
 	addr = st.address
+	new_college = CollegeFormSet(prefix='college',instance=st)
 	if request.method == 'POST':
-		form = StudentForm(request.POST,request.FILES,instance=st)
+	       	form = StudentForm(request.POST,request.FILES,instance=st)
 		addr_form = AddressForm(request.POST, instance=addr)
 		if 'add_college' in request.POST:
 			cp = request.POST.copy()
@@ -27,19 +28,19 @@ def edit_profile(request):
 		elif 'submit' in request.POST:
 			if addr_form.is_valid():
 				addr = addr_form.save()
-			if form.is_valid():
-				st = Student(resume=request.FILES['resume'])
-				st = form.save(commit=False)
-				st.address = addr
-				st.save()
-				new_college = CollegeFormSet(request.POST,prefix='college',instance=st)
-			if new_college.is_valid():
+                        if 'resume' in request.FILES:
+                                st = Student(resume=request.FILES['resume'])
+                        if form.is_valid():
+                                new_college = CollegeFormSet(request.POST,prefix='college',instance=st)
+                                st = form.save(commit=False)
+                                st.address = addr
+                                st.save()
+	                if new_college.is_valid():
 				new_college.save()
 				return redirect('/profile/detail') 
 	else:
 		form = StudentForm(instance=st)
 		addr_form = AddressForm(instance=addr)
-		new_college = CollegeFormSet(prefix='college',instance=st)
 	return render_to_response('edit_profile.html',{'form':form,'addr_form':addr_form,'college':new_college }, context_instance=RequestContext(request))
     	
 # Function for Viewing a User Profile
@@ -60,7 +61,8 @@ def add_college(request):
 			colg = form.save(commit=False)
 			colg.address = addr
 			colg.save()
-		return redirect('/colleges/detail/'.colg.id)
+			id = str(colg.id)
+		return redirect('/colleges/detail/'.id)
 	else:
 		form = CollegeForm()
 		addr_form = AddressForm()
