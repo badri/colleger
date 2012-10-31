@@ -68,6 +68,9 @@ class Skill(models.Model):
     )
     skill = models.CharField(max_length=8, choices=SKILLS, null=True, blank=True)
     skill_type = models.CharField(max_length=8, choices=TYPES, null=True, blank=True)
+    
+    def __unicode__(self):
+        return u'%s' % (self.skill)
 
 class Student(UserProfile):
     student = models.OneToOneField(UserProfile,related_name='student')
@@ -127,13 +130,12 @@ class SkillSet(models.Model):
         ('intermediate', 'Intermediate'),
         ('expert', 'Expert'),
     )
-    skill = models.ForeignKey(Skill)
-    student = models.ForeignKey(Student)
+    skill = models.ForeignKey(Skill, null=True, blank=True)
+    student = models.ForeignKey(Student, null=True, blank=True)
     # todo: I'm changing this to a rating field
     rating = models.CharField(max_length=8, choices=RATING, null=True, blank=True)
-    # todo: why are best_score and last_score charfields?
-    best_score = models.CharField(max_length=8, choices=RATING, null=True, blank=True)
-    last_score = models.CharField(max_length=8, choices=RATING, null=True, blank=True)
+    best_score = models.IntegerField(default=0)
+    last_score = models.IntegerField(default=0)
     
 class Teaching(models.Model):
     BRANCHES = (
@@ -165,7 +167,8 @@ class Company(models.Model):
     name = models.CharField(max_length=48)
     head_count = models.CharField(max_length=8, blank=True, null=True)
     revenue = models.CharField(max_length=12, blank=True, null=True)
-    headquarters = models.CharField(max_length=64)  
+    headquarters = models.CharField(max_length=64) 
+    established = models.CharField(max_length=4, null=True, blank=True)
     
 class Employer(UserProfile):
     employer = models.OneToOneField(UserProfile,related_name='employer') 
