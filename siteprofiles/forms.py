@@ -20,6 +20,11 @@ class CollegeForm(forms.ModelForm):
     class Meta:
         model = College
         exclude = ('address',)
+        
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        exclude = ('address',)
 
 # todo: need some custom validation for resume, pincode, college etc        
 class StudentForm(forms.ModelForm):
