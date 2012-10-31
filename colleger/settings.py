@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'registration',
     'taggit',
     'south',
+    'chosen',
 )
 
 # A sample logging configuration. The only tangible logging

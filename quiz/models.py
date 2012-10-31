@@ -43,6 +43,11 @@ class MultipleChoice(models.Model):
 	categories = TaggableManager()
 	explanation = models.TextField(_('Explain your answer'), blank=True)
 
+	class Meta:
+		verbose_name = _('question')
+		verbose_name_plural = _('questions')
+		db_table = 'questions'
+
 	def __unicode__(self):
 		return u"%s" % truncatewords_html(self.question, 10)
 
@@ -93,7 +98,7 @@ class Quiz(models.Model):
 	# default must be global setting
 	no_of_takes_per_month = models.IntegerField(_('no. of times this quiz can be taken by the candidate per month'),
 						    default=NO_OF_TAKES_PER_MONTH_PER_USER)
-	no_of_instances_per_month = models.IntegerField(_('no. of times this quiz can be taken by the candidate per month'),
+	no_of_instances_per_month = models.IntegerField(_('no. of times this quiz can be used by the setter per month'),
 						    default=NO_OF_INSTANCES_PER_MONTH_PER_SETTER)
 	
 	class Meta:
