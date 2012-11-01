@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db import models
+from chosen import forms as chosenforms
 
 from quiz.models import  Quiz, MultipleChoiceAnswer, MultipleChoice, QuizInstance, UserResponse
 
@@ -11,6 +13,9 @@ class QuizAdmin(admin.ModelAdmin):
 	list_filter = ('published', 'status',)
 	search_fields = ('title', 'description',)
 	filter_vertical = ('questions',)
+	formfield_overrides = {
+		models.ManyToManyField: {'widget' : chosenforms.ChosenSelectMultiple },
+	}
 
 class MultipleChoiceAdmin(admin.ModelAdmin):
 	filter_vertical = ('choices','correct_answer',)

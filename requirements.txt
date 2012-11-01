@@ -1,6 +1,5 @@
 dateutils
 django-mptt>=0.2.1
-easy_thumbnails>=1.0-alpha-17
 django-polymorphic>=0.2
 django-taggit
 django-registration
@@ -8,4 +7,4 @@ django-ratings==0.3.7
 django-haystack
 South
 django-extensions
-
+git+git://github.com/theatlantic/django-chosen.git#egg=django-chosen
