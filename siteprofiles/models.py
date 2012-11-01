@@ -56,18 +56,8 @@ class College(models.Model):
         return u'%s' % (self.name)
     
 class Skill(models.Model):
-    SKILLS = (
-        ('c', 'C'),
-        ('cpp', 'C++'),
-        ('vb', 'VB'),
-        ('java', 'JAVA'),
-    )
-    TYPES = (
-        ('soft', 'Soft-Skills'),
-        ('it', 'IT-Skills'),
-    )
-    skill = models.CharField(max_length=8, choices=SKILLS, null=True, blank=True)
-    skill_type = models.CharField(max_length=8, choices=TYPES, null=True, blank=True)
+    skill = models.CharField(max_length=8, null=True, blank=True)
+    skill_type = models.CharField(max_length=8, null=True, blank=True)
     
     def __unicode__(self):
         return u'%s' % (self.skill)
@@ -92,8 +82,7 @@ class Professor(UserProfile):
     professor = models.OneToOneField(UserProfile,related_name='professor')
     working = models.ManyToManyField(College, through='Teaching', blank=True) 
     address = models.ForeignKey(Address,blank=True, null=True)
-    # todo: each model will already have a pk unique id
-    # prof_id = models.CharField(max_length=24, null=True, blank=True)
+    prof_id = models.CharField(max_length=24, null=True, blank=True)
 
 class Education(models.Model):
     YEAR_IN = (
@@ -117,9 +106,8 @@ class Education(models.Model):
     student = models.ForeignKey(Student, null=True, blank=True)
     roll_no = models.CharField(max_length=24, null=True, blank=True)
     register_no = models.CharField(max_length=24, null=True, blank=True)
-    # todo: what are the below 2 fields?
-    doj = models.CharField(max_length=4, null=True, blank=True)
-    dop = models.CharField(max_length=4, null=True, blank=True)
+    doj = models.DateField(null=True, blank=True)
+    dop = models.DateField(null=True, blank=True)
     year = models.CharField(max_length=2, choices=YEAR_IN, null=True, blank=True)
     branch = models.CharField(max_length=8, choices=BRANCHES, null=True, blank=True)
     
@@ -132,8 +120,7 @@ class SkillSet(models.Model):
     )
     skill = models.ForeignKey(Skill, null=True, blank=True)
     student = models.ForeignKey(Student, null=True, blank=True)
-    # todo: I'm changing this to a rating field
-    rating = models.CharField(max_length=8, choices=RATING, null=True, blank=True)
+    rating = models.CharField(max_length=16, choices=RATING, null=True, blank=True)
     best_score = models.IntegerField(default=0)
     last_score = models.IntegerField(default=0)
     
@@ -173,6 +160,5 @@ class Company(models.Model):
 class Employer(UserProfile):
     employer = models.OneToOneField(UserProfile,related_name='employer') 
     address = models.ForeignKey(Address,blank=True, null=True)
-    # todo: each model will already have a pk unique id
-    # emp_id = models.CharField(max_length=24, null=True, blank=True)
+    emp_id = models.CharField(max_length=24, null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True)

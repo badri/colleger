@@ -17,4 +17,5 @@ urlpatterns = patterns('siteprofiles.views',
     url(r'^company/add/$', 'add_company'),
     url(r'^company/edit/(?P<id>\d+)/$', 'edit_company'),
     url(r'^company/detail/(?P<id>\d+)/$', 'view_company'),
+    url(r'^skills/add/$', 'add_skills'),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

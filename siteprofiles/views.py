@@ -44,7 +44,9 @@ def edit_profile(request):
                                 st.save()
 	                if new_college.is_valid():
 				new_college.save()
-				return redirect('/profile/detail') 
+                        if new_skill.is_valid():
+                            new_skill.save()
+                        return redirect('/profile/detail') 
 	else:
 		form = StudentForm(instance=st)
 		addr_form = AddressForm(instance=addr)
@@ -56,7 +58,8 @@ def view_profile(request):
 	st = Student.objects.get(user=uname)
 	addr = st.address
 	edu = Education.objects.filter(student=st)
- 	return render_to_response('profile_detail.html', {'st':st,'addr':addr,'edu':edu}, context_instance=RequestContext(request))
+	skillset = SkillSet.objects.filter(student=st)
+ 	return render_to_response('profile_detail.html', {'st':st,'addr':addr,'edu':edu, 'skillset':skillset}, context_instance=RequestContext(request))
  	
 def add_college(request):
 	if request.method == 'POST':
@@ -146,6 +149,17 @@ def view_company(request,id):
 	addr = company.address
  	return render_to_response('company_detail.html', {'company':company,'addr':addr}, context_instance=RequestContext(request))
  	
+def add_skills(request):
+	skills = Skill.objects.all()
+	if request.method == 'POST':
+		form = SkillForm(request.POST)
+		if form.is_valid():
+			skill = form.save()
+		#return redirect('/company/detail/'+id)
+	else:
+		form = SkillForm()
+	return render_to_response('add_skill.html',{'form':form,'skilldetails':skills },context_instance=RequestContext(request))
+
 
 # Separate function for Login. (May be remove it later or modify it)
 def login_user(request):

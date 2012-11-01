@@ -46,8 +46,8 @@
 		<div class="profile-field-label">Blog:</div>
 		<div class="profile-field-value">{{ addr.blog }}</div>
 	<h3>Education</h3>
-	{% for education in edu%}
-		<h3>College Details</h3>
+	{% for education in edu %}
+		<h4>College Details</h4>
 		<div class="profile-field-label">Register No</div>
 		<div class="profile-field-value">{{ education.register_no }}</div>
 		<div class="profile-field-label">Roll No</div>
@@ -60,6 +60,18 @@
 		<div class="profile-field-value">{{ education.dop }}</div>
 		<div class="profile-field-label">Branch</div>
 		<div class="profile-field-value">{{ education.get_branch_display }}</div>
+	{% endfor %}
+	<h3>Skills</h3>
+	{% for skills in skillset %}
+	<h4>Skill {{forloop.counter}}</h4>
+	    <div class="profile-field-label">Skill</div>
+	    <div class="profile-field-value">{{skills.skill}}</div>
+	    <div class="profile-field-label">Self Rating</div>
+	    <div class="profile-field-value">{{skills.rating}}</div>
+	    <div class="profile-field-label">Best Score</div>
+	    <div class="profile-field-value">{{skills.best_score}}</div>
+	    <div class="profile-field-label">Last Score</div>
+	    <div class="profile-field-value">{{skills.last_score}}</div>
 	{% endfor %}
 	</div>
 {% endblock content %}
