@@ -17,6 +17,13 @@ class ProfessorForm(forms.ModelForm):
         exclude = ('professor','address','user',)
    
 class CollegeForm(forms.ModelForm):
+    doj = forms.DateField(('%d/%m/%Y',), label='Date of Joining', required=False, widget=forms.DateInput(format='%d/%m/%Y', attrs={
+            'class':'input',
+            'readonly':'readonly',
+            'size':'15'
+        })
+    )
+    dop = forms.DateField(('%d/%m/%Y',), label='Date of Pass', required=False, widget=forms.DateInput(format='%d/%m/%Y', attrs={ 'class':'input','readonly':'readonly','size':'15'}))
     class Meta:
         model = College
         exclude = ('address',)
@@ -25,6 +32,10 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         exclude = ('address',)
+  
+class SkillForm(forms.ModelForm):
+    class Meta:
+        model = Skill
 
 # todo: need some custom validation for resume, pincode, college etc        
 class StudentForm(forms.ModelForm):

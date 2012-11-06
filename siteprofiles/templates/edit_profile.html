@@ -33,6 +33,7 @@
 			<fieldset>
 			{{ college.management_form }}
 				{% for form in college.forms %}
+				 <h3>College {{forloop.counter}} Details</h3>
 		        	<div>{{form.as_p}}</div>
 		      	{% endfor %}
 		      <input title='Add College' type='submit' name='add_college' value='Add a College' />
@@ -40,6 +41,7 @@
 		    <fieldset>
 			{{ skills.management_form }}
 				{% for form in skills.forms %}
+				<h3>Skill {{forloop.counter}} Detail</h3>
 		        	<div>{{form.as_p}}</div>
 		      	{% endfor %}
 		      <input title='Add Skill' type='submit' name='add_skill' value='Add a Skill' />
