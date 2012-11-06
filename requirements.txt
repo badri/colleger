@@ -8,3 +8,4 @@ django-haystack
 South
 django-extensions
 git+git://github.com/theatlantic/django-chosen.git#egg=django-chosen
+django-form-utils

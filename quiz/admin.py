@@ -9,8 +9,8 @@ class QuizAdmin(admin.ModelAdmin):
 	
 	radio_admin_fields = {'status': admin.VERTICAL}
 	
-	list_display = ('title', 'published', 'status',)
-	list_filter = ('published', 'status',)
+	list_display = ('title', 'status',)
+	list_filter = ('status',)
 	search_fields = ('title', 'description',)
 	filter_vertical = ('questions',)
 	formfield_overrides = {

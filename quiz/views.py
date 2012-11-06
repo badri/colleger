@@ -5,12 +5,14 @@ from django.core.context_processors import csrf
 from django.utils import timezone
 from quiz.models import *
 from quiz.forms import *
+from django.template.defaultfilters import slugify
+
+from courses.decorators import professor
+
 
 def create_user_response(user_response, answers):
 	user_response.response=[MultipleChoiceAnswer.objects.get(pk=x) for x in answers]	
 	user_response.save()
-
-
 
 def questions_list(request):
 	questions = MultipleChoice.objects.all()
@@ -73,3 +75,25 @@ def report(request, id):
 	if not quiz_instance.complete:
 		raise Http404
 	pass
+
+@professor
+def new_quiz(request):
+	if request.method == 'POST':
+		# save response
+		post_data = request.POST
+		#print post_data
+		new_quiz = NewQuizForm(request.POST)
+		if new_quiz.is_valid():
+			print 'valid'
+			quiz = new_quiz.save(commit=False)
+			quiz.setter = request.user
+			quiz.slug = slugify(quiz.title)
+			quiz.save()
+			print quiz
+		else:
+			print new_quiz.errors
+		# redirect to add questions
+	new_quiz_form = NewQuizForm()
+	c = {'new_quiz_form' : new_quiz_form }
+	c.update(csrf(request))
+	return render_to_response('quiz/new_quiz.html', c)

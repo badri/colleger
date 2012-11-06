@@ -77,15 +77,14 @@ class Quiz(models.Model):
 	)
 	NO_OF_TAKES_PER_MONTH_PER_USER = 3
 	NO_OF_INSTANCES_PER_MONTH_PER_SETTER = 20
-	setter = models.ForeignKey(User, related_name='setter')
+	setter = models.ForeignKey(User, related_name='setter', verbose_name='Setter')
 	title = models.CharField(_('title'), max_length=100)
 	slug = models.SlugField(_('slug'))
 	description = models.TextField(_('description'), blank=True, null=True)	
 	status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=1)
 	type = models.IntegerField(_('quiz type'), choices=TYPE_CHOICES, default=2)
 	questions = models.ManyToManyField(MultipleChoice)
-	categories = TaggableManager()	
-	published = models.DateTimeField(_('published'))	
+	categories = TaggableManager()
 	date_added = models.DateTimeField(_('date added'), auto_now_add=True)
 	date_modified = models.DateTimeField(_('date modified'), auto_now_add=True)
 
@@ -105,7 +104,7 @@ class Quiz(models.Model):
 		verbose_name = _('quiz')
 		verbose_name_plural = _('quizzes')
 		db_table = 'quizzes'
-		ordering = ('-published',)
+		ordering = ('-date_added',)
 	
 	def __unicode__(self):
 		return u"%s" % self.title

@@ -1,6 +1,10 @@
 from django import forms
+from django.forms import HiddenInput
 
 from quiz.models import *
+
+from form_utils.forms import BetterModelForm
+
 '''
 class QuestionForm(forms.Form):
 	answers = forms.ChoiceField(widget=forms.RadioSelect(), label=u"Please select a answer:")
@@ -43,3 +47,9 @@ class QuizForm2(forms.Form):
     def __init__(self, question, *args, **kwargs):
         super(QuizForm2, self).__init__(*args, **kwargs)
         self.fields['choices'] = forms.ChoiceField(widget=forms.CheckboxSelectMultiple, choices=[ (x.id, x.answer) for x in question.choices.all()])
+
+class NewQuizForm(BetterModelForm):
+	class Meta:
+		model = Quiz
+		exclude = ('setter', 'slug', 'questions', 'categories',)
+

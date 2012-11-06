@@ -19,4 +19,5 @@ urlpatterns = patterns('quiz.views',
         url(r'^quiz/(?P<id>\d+)/report/$', 'report'),
         url(r'^quiz/(?P<id>\d+)/result/$', 'result'),
 	url(r'^quiz/(?P<id>\d+)/$', 'quiz'),
+	url(r'^quiz/new/$', 'new_quiz'),
 )
