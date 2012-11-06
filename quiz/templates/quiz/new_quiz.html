@@ -1,0 +1,37 @@
+{% extends "quiz/base_quiz.html" %}
+
+{% block title %}Create a new quiz{% endblock %}
+
+{% block content_title %}
+	<h2>Create a new quiz</h2>
+{% endblock %}
+
+{% block content %}
+	<form action="" method="post">	{% csrf_token %}
+	    {% if new_quiz_form.non_field_errors %}{{ new_quiz_form.non_field_errors }}{% endif %}
+	    {% for fieldset in new_quiz_form.fieldsets %}
+	      <fieldset class="{{ fieldset.classes }}">
+	      {% if fieldset.legend %}
+		<legend>{{ fieldset.legend }}</legend>
+	      {% endif %}
+	      {% if fieldset.description %}
+		<p class="description">{{ fieldset.description }}</p>
+	      {% endif %}
+	      <ul>
+	      {% for field in fieldset %}
+		{% if field.is_hidden %}
+		  {{ field }}
+		{% else %}
+		  <li{{ field.row_attrs }}>
+		    {{ field.errors }}
+		    {{ field.label_tag }}
+		    {{ field }}
+		  </li>
+		{% endif %}
+	      {% endfor %}
+	      </ul>
+	      </fieldset>
+	    {% endfor %}
+	<input type="submit" value="Create">
+	</form>
+{% endblock %}

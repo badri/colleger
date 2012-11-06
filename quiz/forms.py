@@ -1,38 +1,6 @@
 from django import forms
-from django.forms import HiddenInput
-
 from quiz.models import *
-
 from form_utils.forms import BetterModelForm
-
-'''
-class QuestionForm(forms.Form):
-	answers = forms.ChoiceField(widget=forms.RadioSelect(), label=u"Please select a answer:")
-	
-	def __init__(self, question, *args, **kwargs):
-		super(QuestionForm, self).__init__(*args, **kwargs)
-		self.question = question
-		answers = question.answers.order_by('weight')
-		self.fields['answers'].choices = [(i, a.answer) for i, a in enumerate(answers)]
-		
-		for pos, answer in enumerate(answers):
-			if answer.id == question.correct_answer_id:
-				self.correct = pos
-			break
-	
-	def is_correct(self):
-		if not self.is_valid():
-			return False
-		
-		return self.cleaned_data['answers'] == str(self.question.correct_answer.id)
-
-def quiz_forms(quiz, data=None):
-	questions = Question.objects.filter(quiz=quiz).order_by('id')
-	form_list = []
-	for pos, question in enumerate(questions):
-		form_list.append(QuestionForm(question, data, prefix=pos))
-	return form_list
-'''
 
 class QuizForm(forms.Form):
 	choices = forms.ModelChoiceField(queryset=MultipleChoiceAnswer.objects.none(),
@@ -51,5 +19,12 @@ class QuizForm2(forms.Form):
 class NewQuizForm(BetterModelForm):
 	class Meta:
 		model = Quiz
+		fieldsets = [
+			('Create new quiz', {'fields': ['title', 'description', 'status', 'type'] }),
+			('Advanced', {
+				'classes': ['collapse'],
+				'fields': ['allow_skipping', 'allow_jumping', 'backwards_navigation', 'no_of_takes_per_month', 'no_of_instances_per_month',
+					   'random_question', 'feedback', 'multiple_takes']
+				})]	
 		exclude = ('setter', 'slug', 'questions', 'categories',)
 
