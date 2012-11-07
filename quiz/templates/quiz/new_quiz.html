@@ -18,6 +18,17 @@ $(document).ready(function() {
 	  });
     });
 
+    $('#add-answer-post').click(function() {
+	  $.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "/add-answer-post/",
+                data: { "type": 23, csrfmiddlewaretoken: '{{ csrf_token }}' },
+		error: handleFail,
+		success : done2 
+	  });
+    });
+
     var handleFail = function(xhr, msg){
 	alert("Callback invoke error: " + msg)
     }
@@ -25,10 +36,16 @@ $(document).ready(function() {
     var done = function(data) {
         $('#answer-box').append(data.answer);
     }
+
+    var done2 = function(data) {
+        $('#answer-box-post').append(data.answer);
+    }
 });
 </script>
 <style type="text/css">
+#add-answer-post,
 #add-answer {
+  margin: 4px;
   padding: 20px;
   background: #333;
   color: #fff;
@@ -63,5 +80,7 @@ $(document).ready(function() {
 	<input type="submit" value="Create">
 	<div id="add-answer">Add answer</div>
 	<div id="answer-box"></div>
+	<div id="add-answer-post">Add answer post</div>
+	<div id="answer-box-post"></div>
 	</form>
 {% endblock %}

@@ -111,3 +111,11 @@ def add_answer_choice(request):
 		response = { 'answer' : answer_choice.as_p() }
 		data = simplejson.dumps(response)
 		return HttpResponse(data, mimetype="application/json")
+
+def add_answer_post(request):
+	if request.is_ajax():
+		type = request.POST.get('type')
+		answer_choice = MultiChoiceAnswerForm()
+		response = { 'answer' : answer_choice.as_p() + '<h1>'+ type +'</h1>' }
+		data = simplejson.dumps(response)
+		return HttpResponse(data, mimetype="application/json")
