@@ -20,4 +20,5 @@ urlpatterns = patterns('quiz.views',
         url(r'^quiz/(?P<id>\d+)/result/$', 'result'),
 	url(r'^quiz/(?P<id>\d+)/$', 'quiz'),
 	url(r'^quiz/new/$', 'new_quiz'),
+        url(r'^add-answer/$', 'add_answer_choice'),
 )

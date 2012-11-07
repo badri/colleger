@@ -1,8 +1,14 @@
+'''
+TODO:
+1. full AJAX of quiz crud with answers, questions.
+2. users can add questions without correct answer, warning will be issued.
+3. a quiz cannot be put to use without having all the solutions as correct.
+'''
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.context_processors import csrf
-from django.utils import timezone
+from django.utils import timezone, simplejson
 from quiz.models import *
 from quiz.forms import *
 from django.template.defaultfilters import slugify
@@ -97,3 +103,11 @@ def new_quiz(request):
 	c = {'new_quiz_form' : new_quiz_form }
 	c.update(csrf(request))
 	return render_to_response('quiz/new_quiz.html', c)
+
+
+def add_answer_choice(request):
+	if request.is_ajax():
+		answer_choice = MultiChoiceAnswerForm()
+		response = { 'answer' : answer_choice.as_p() }
+		data = simplejson.dumps(response)
+		return HttpResponse(data, mimetype="application/json")

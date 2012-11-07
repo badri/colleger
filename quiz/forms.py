@@ -28,3 +28,6 @@ class NewQuizForm(BetterModelForm):
 				})]	
 		exclude = ('setter', 'slug', 'questions', 'categories',)
 
+class MultiChoiceAnswerForm(forms.ModelForm):
+	class Meta:
+		model = MultipleChoiceAnswer

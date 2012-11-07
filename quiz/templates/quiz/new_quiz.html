@@ -5,8 +5,36 @@
 {% block content_title %}
 	<h2>Create a new quiz</h2>
 {% endblock %}
-
 {% block content %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#add-answer').click(function() {
+	  $.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "/add-answer/",
+		error: handleFail,
+		success : done 
+	  });
+    });
+
+    var handleFail = function(xhr, msg){
+	alert("Callback invoke error: " + msg)
+    }
+
+    var done = function(data) {
+        $('#answer-box').append(data.answer);
+    }
+});
+</script>
+<style type="text/css">
+#add-answer {
+  padding: 20px;
+  background: #333;
+  color: #fff;
+  width: 100px;
+}
+</style>
 	<form action="" method="post">	{% csrf_token %}
 	    {% if new_quiz_form.non_field_errors %}{{ new_quiz_form.non_field_errors }}{% endif %}
 	    {% for fieldset in new_quiz_form.fieldsets %}
@@ -33,5 +61,7 @@
 	      </fieldset>
 	    {% endfor %}
 	<input type="submit" value="Create">
+	<div id="add-answer">Add answer</div>
+	<div id="answer-box"></div>
 	</form>
 {% endblock %}
