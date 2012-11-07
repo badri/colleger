@@ -17,13 +17,13 @@ class ProfessorForm(forms.ModelForm):
         exclude = ('professor','address','user',)
    
 class CollegeForm(forms.ModelForm):
-    doj = forms.DateField(('%d/%m/%Y',), label='Date of Joining', required=False, widget=forms.DateInput(format='%d/%m/%Y', attrs={
+    doj = forms.DateField(('%d/%m/%Y',), label='Date of Joining', required=False, widget=forms.DateTimeInput(format='%d/%m/%Y', attrs={
             'class':'input',
             'readonly':'readonly',
             'size':'15'
         })
     )
-    dop = forms.DateField(('%d/%m/%Y',), label='Date of Pass', required=False, widget=forms.DateInput(format='%d/%m/%Y', attrs={ 'class':'input','readonly':'readonly','size':'15'}))
+    dop = forms.DateField(('%d/%m/%Y',), label='Date of Pass', required=False, widget=forms.DateTimeInput(format='%d/%m/%Y', attrs={ 'class':'input','readonly':'readonly','size':'15'}))
     class Meta:
         model = College
         exclude = ('address',)

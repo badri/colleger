@@ -51,6 +51,7 @@ class College(models.Model):
     faculties = models.CharField(max_length=4, null=True, blank=True)
     affiliation = models.CharField(max_length=12, choices=AFFILIATION, null=True, blank=True)
     college_type = models.CharField(max_length=12, choices=TYPE, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     
     def __unicode__(self):
         return u'%s' % (self.name)
@@ -70,7 +71,7 @@ class Student(UserProfile):
     address = models.ForeignKey(Address,blank=True, null=True)
     passport = models.CharField(max_length=16, null=True, blank=True)
     resume = models.FileField(upload_to='resumes/%Y/%m/%d')
-    dob = models.DateField(null=True, blank=True)
+    dob = models.DateTimeField(null=True, blank=True)
     #avatar = models.FileField()
     #profile_photo = models.FileField()
     #tenth_certificate = models.FileField()
@@ -106,10 +107,11 @@ class Education(models.Model):
     student = models.ForeignKey(Student, null=True, blank=True)
     roll_no = models.CharField(max_length=24, null=True, blank=True)
     register_no = models.CharField(max_length=24, null=True, blank=True)
-    doj = models.DateField(null=True, blank=True)
-    dop = models.DateField(null=True, blank=True)
+    doj = models.DateTimeField(null=True, blank=True)
+    dop = models.DateTimeField(null=True, blank=True)
     year = models.CharField(max_length=2, choices=YEAR_IN, null=True, blank=True)
     branch = models.CharField(max_length=8, choices=BRANCHES, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     
 class SkillSet(models.Model):
     RATING = (
@@ -144,10 +146,11 @@ class Teaching(models.Model):
     )
     college = models.ForeignKey(College)
     professor = models.ForeignKey(Professor)
-    date_of_joining = models.DateField(null=True, blank=True)
-    date_left = models.DateField(null=True, blank=True)
+    date_of_joining = models.DateTimeField(null=True, blank=True)
+    date_left = models.DateTimeField(null=True, blank=True)
     subject = models.CharField(max_length=2, choices=SUBJECTS, null=True, blank=True)
     branch = models.CharField(max_length=8, choices=BRANCHES, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     
 class Company(models.Model):
     address = models.ForeignKey(Address, blank=True, null=True)
@@ -156,9 +159,21 @@ class Company(models.Model):
     revenue = models.CharField(max_length=12, blank=True, null=True)
     headquarters = models.CharField(max_length=64) 
     established = models.CharField(max_length=4, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     
 class Employer(UserProfile):
     employer = models.OneToOneField(UserProfile,related_name='employer') 
     address = models.ForeignKey(Address,blank=True, null=True)
     emp_id = models.CharField(max_length=24, null=True, blank=True)
     company = models.ForeignKey(Company, null=True, blank=True)
+    
+class Jobposting(models.Model):
+    employer = models.ForeignKey(Employer,blank=True, null=True) 
+    title = models.CharField(max_length=150,blank=True, null=True)
+    slug = models.SlugField()
+    job_description = models.TextField(null=True, blank=True)
+    job_requirements = models.TextField(null=True, blank=True)
+    job_location = models.TextField(null=True, blank=True)
+    job_skills = models.TextField(null=True, blank=True)
+    job_keywords = models.TextField(null=True, blank=True)
+    posting_date = models.DateTimeField(null=True, blank=True)
