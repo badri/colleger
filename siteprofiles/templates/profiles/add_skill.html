@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add Skill{% endblock %}
+ 
+{% block content %}
+<h1>Add Skill</h1>
+    <div class="tabcontent" style="display:block">
+        <form method="post" action="" class="accountForm marginTop">{% csrf_token %}<!-- Added due to internal url-->
+		   <div class="skill-form" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:50px;float:left;">
+			{% for field in form %}
+			<div style="width:400px;padding:15px;">
+		            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+					<div style="display:inline">{{ field }}</div>
+			</div>
+					{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+					{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+			{% endfor %}
+			<input type="submit" name="submit" value="Add Skill" class="submit" style="width:100px;margin:0px auto;height:32px;display:inline-block;">
+			</div>
+		</form>
+		</div>
+		<div class="tabcontent" style="display:inline-block;width:400px;padding:10px">
+		<h3>Skills Already Present</h3>
+		{% for skilldetail in skilldetails %}
+	<h4>Skill {{forloop.counter}}</h4>
+	    <div class="profile-field-label">Skill</div>
+	    <div class="profile-field-value">{{skilldetail.skill}}</div>
+	    <div class="profile-field-label">Skill Type</div>
+	    <div class="profile-field-value">{{skilldetail.skill_type}}</div>
+	{% endfor %}
+    </div>
+{% endblock content %}

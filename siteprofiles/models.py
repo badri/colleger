@@ -168,12 +168,15 @@ class Employer(UserProfile):
     company = models.ForeignKey(Company, null=True, blank=True)
     
 class Jobposting(models.Model):
-    employer = models.ForeignKey(Employer,blank=True, null=True) 
-    title = models.CharField(max_length=150,blank=True, null=True)
+    STATUS = (
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+    )
+    postedby = models.ForeignKey(Employer)
+    title = models.CharField(max_length=150)
     slug = models.SlugField()
-    job_description = models.TextField(null=True, blank=True)
-    job_requirements = models.TextField(null=True, blank=True)
-    job_location = models.TextField(null=True, blank=True)
-    job_skills = models.TextField(null=True, blank=True)
-    job_keywords = models.TextField(null=True, blank=True)
-    posting_date = models.DateTimeField(null=True, blank=True)
+    description = models.TextField()
+    status = models.CharField(max_length=8, choices=STATUS, null=True, blank=True)
+    location = models.TextField(null=True, blank=True)
+    keywords = models.TextField(null=True, blank=True)
+    posting_date = models.DateField(auto_now_add=True)

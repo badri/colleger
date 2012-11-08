@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile{% endblock %}
+ 
+{% block content %}
+<h1>Edit Profile for {{ user }}</h1>
+    <div class="tabcontent" style="display:block">
+        <form method="post" enctype="multipart/form-data" action="" class="accountForm marginTop">{% csrf_token %}<!-- Added due to internal url-->
+        		<input type="hidden" name="persontype" value="student"/>
+		<input type="submit" name="submit" value="Update" class="submit" style="width:100px;margin:0px auto;display:inline-block;height:32px;">
+		   <div class="student-profile" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:50px;float:left">
+		   <h3>Personal Info</h3>
+			{% for field in form %}
+			<div style="width:400px;padding:15px;">
+		            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+					<div style="display:inline">{{ field }}</div>
+			</div>
+					{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+					{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+			{% endfor %}
+			</div>
+			<div class="student-profile" style="width:400px;background-color:#aaa;margin-top:30px;margin-left:50px;float:left">
+			<h3>Contact Details</h3>
+			{% for field in addr_form %}
+			<div style="width:400px;padding:15px;">
+		            <div class="hint {%if field.field.required %} bold {% endif %}" style="clear:both;width:40%;display:inline-block">{{ field.label_tag }}</div>
+					<div style="display:inline">{{ field }}</div>
+			</div>
+					{% if field.help_text %}<span>{{ field.help_text }}</span>{% endif %}
+					{% if field.errors %}<span>{{ field.errors }}</span>{% endif %}
+			{% endfor %}
+			</div>
+			</div>
+			<fieldset>
+			{{ college.management_form }}
+				{% for form in college.forms %}
+				 <h3>College {{forloop.counter}} Details</h3>
+		        	<div>{{form.as_p}}</div>
+		      	{% endfor %}
+		      <input title='Add College' type='submit' name='add_college' value='Add a College' />
+		    </fieldset>
+		    <fieldset>
+			{{ skills.management_form }}
+				{% for form in skills.forms %}
+				<h3>Skill {{forloop.counter}} Detail</h3>
+		        	<div>{{form.as_p}}</div>
+		      	{% endfor %}
+		      <input title='Add Skill' type='submit' name='add_skill' value='Add a Skill' />
+		    </fieldset>
+		</form>
+    </div>
+{% endblock content %}

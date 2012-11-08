@@ -50,16 +50,23 @@ def edit_profile(request):
 	else:
 		form = StudentForm(instance=st)
 		addr_form = AddressForm(instance=addr)
-	return render_to_response('edit_profile.html',{'form':form,'addr_form':addr_form,'college':new_college, 'skills':new_skill }, context_instance=RequestContext(request))
+	return render_to_response('profiles/edit_profile.html',{'form':form,'addr_form':addr_form,'college':new_college, 'skills':new_skill }, context_instance=RequestContext(request))
+
+	                       
     	
 # Function for Viewing a User Profile
 def view_profile(request):
 	uname = request.user
-	st = Student.objects.get(user=uname)
-	addr = st.address
-	edu = Education.objects.filter(student=st)
-	skillset = SkillSet.objects.filter(student=st)
- 	return render_to_response('profile_detail.html', {'st':st,'addr':addr,'edu':edu, 'skillset':skillset}, context_instance=RequestContext(request))
+	try:
+	    st = Student.objects.get(user=uname)
+	    edu = Education.objects.filter(student=st)
+	    skillset = SkillSet.objects.filter(student=st)
+	    addr = st.address
+	    return render_to_response('profiles/profile_detail.html', {'st':st,'addr':addr,'edu':edu, 'skillset':skillset}, context_instance=RequestContext(request))
+	except:
+	      emp = Employer.objects.get(user=uname)
+	      addr = emp.address
+	      return render_to_response('profiles/profile_detail.html', {'emp':emp,'addr':addr}, context_instance=RequestContext(request))
  	
 def add_college(request):
 	if request.method == 'POST':
@@ -76,7 +83,7 @@ def add_college(request):
 	else:
 		form = CollegeForm()
 		addr_form = AddressForm()
-	return render_to_response('add_college.html',{'form':form,'addr_form':addr_form,'crud':'Add' },context_instance=RequestContext(request))
+	return render_to_response('profiles/add_college.html',{'form':form,'addr_form':addr_form,'crud':'Add' },context_instance=RequestContext(request))
   
 def edit_college(request,id):
         # todo: user get_object_or_404
@@ -96,14 +103,14 @@ def edit_college(request,id):
 	else:
 		form = CollegeForm(instance=college)
 		addr_form = AddressForm(instance=addr)
-	return render_to_response('add_college.html',{'form':form, 'addr_form':addr_form, 'crud':'Update' },context_instance=RequestContext(request))
+	return render_to_response('profiles/add_college.html',{'form':form, 'addr_form':addr_form, 'crud':'Update' },context_instance=RequestContext(request))
 	
 # Function for Viewing a User Profile
 def view_college(request,id):
         # todo: user get_object_or_404
 	college = College.objects.get(pk=id)
 	addr = college.address
- 	return render_to_response('college_detail.html', {'college':college,'addr':addr}, context_instance=RequestContext(request))
+ 	return render_to_response('profiles/college_detail.html', {'college':college,'addr':addr}, context_instance=RequestContext(request))
  	
 def add_company(request):
 	if request.method == 'POST':
@@ -120,7 +127,7 @@ def add_company(request):
 	else:
 		form = CompanyForm()
 		addr_form = AddressForm()
-	return render_to_response('add_company.html',{'form':form,'addr_form':addr_form,'crud':'Add' },context_instance=RequestContext(request))
+	return render_to_response('profiles/add_company.html',{'form':form,'addr_form':addr_form,'crud':'Add' },context_instance=RequestContext(request))
 
 def edit_company(request,id):
         # todo: user get_object_or_404
@@ -140,14 +147,14 @@ def edit_company(request,id):
 	else:
 		form = CompanyForm(instance=company)
 		addr_form = AddressForm(instance=addr)
-	return render_to_response('add_college.html',{'form':form, 'addr_form':addr_form, 'crud':'Update' },context_instance=RequestContext(request))
+	return render_to_response('profiles/add_college.html',{'form':form, 'addr_form':addr_form, 'crud':'Update' },context_instance=RequestContext(request))
 	
 # Function for Viewing a User Profile
 def view_company(request,id):
         # todo: user get_object_or_404
 	company = Company.objects.get(pk=id)
 	addr = company.address
- 	return render_to_response('company_detail.html', {'company':company,'addr':addr}, context_instance=RequestContext(request))
+ 	return render_to_response('profiles/company_detail.html', {'company':company,'addr':addr}, context_instance=RequestContext(request))
  	
 def add_skills(request):
 	skills = Skill.objects.all()
@@ -158,7 +165,7 @@ def add_skills(request):
 		#return redirect('/company/detail/'+id)
 	else:
 		form = SkillForm()
-	return render_to_response('add_skill.html',{'form':form,'skilldetails':skills },context_instance=RequestContext(request))
+	return render_to_response('profiles/add_skill.html',{'form':form,'skilldetails':skills },context_instance=RequestContext(request))
 
 
 # Separate function for Login. (May be remove it later or modify it)
