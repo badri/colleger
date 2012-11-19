@@ -1,6 +1,7 @@
 from django import forms
 from quiz.models import *
 from form_utils.forms import BetterModelForm
+from chosen import forms as chosenforms
 
 class QuizForm(forms.Form):
 	choices = forms.ModelChoiceField(queryset=MultipleChoiceAnswer.objects.none(),
@@ -31,3 +32,10 @@ class NewQuizForm(BetterModelForm):
 class MultiChoiceAnswerForm(forms.ModelForm):
 	class Meta:
 		model = MultipleChoiceAnswer
+
+class AddExistingQuestionForm(forms.Form):
+	questions = chosenforms.ChosenModelChoiceField(queryset=MultipleChoice.objects.all())
+
+class MultipleChoiceForm(forms.ModelForm):
+	class Meta:
+		model = MultipleChoice

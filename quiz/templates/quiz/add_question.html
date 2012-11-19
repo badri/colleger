@@ -1,0 +1,46 @@
+{% extends "quiz/base_quiz.html" %}
+
+{% block title %}{{ quiz.title }}{% endblock %}
+
+{% block content_title %}
+	<h2>{{ quiz.title }}</h2>
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#add-new-question').click(function() {
+	  $.ajax({
+		type: "POST",
+		dataType: "json",
+		url: "/add-answer-post/",
+                data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+		error: handleFail,
+		success : done2 
+	  });
+    });
+
+    var handleFail = function(xhr, msg){
+	alert("Callback invoke error: " + msg)
+    }
+
+    var done = function(data) {
+        $('#answer-box-post').append(data.question);
+    }
+});
+</script>
+<style type="text/css">
+#add-new-question,
+#add-existing-question {
+  margin: 4px;
+  padding: 20px;
+  background: #333;
+  color: #fff;
+  width: 100px;
+}
+</style>
+	{{ quiz.description }}
+	<div id="add-new-question">Add new question</div>
+	<div id="add-existing-question">Add existing question</div>
+	<div id="answer-box-post"></div>
+{% endblock %}
